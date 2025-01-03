@@ -1,33 +1,33 @@
 # discord to fanbox connector
 
-## 1. ŠT—v
-³”F§discordƒT[ƒo‚É‚Â‚¢‚ÄAŽQ‰ÁŽÒ‚ÌŽ©“®§Œä‚ðs‚¤ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Å‚·B
-’ml‚ÌˆË—Š‚ð‚à‚Æ‚É\’z’†‚Ì‚à‚Ì‚É‚È‚è‚Ü‚·B
-Œ³ƒlƒ^‚Í‚ä‚«‚Ý‚µ‚Ì‚³‚ñ‚ÌƒAƒCƒfƒA‚Å‚·: https://note.com/fujii_shino/n/n5f1d6f057db4
+## 1. æ¦‚è¦
+æ‰¿èªåˆ¶discordã‚µãƒ¼ãƒã«ã¤ã„ã¦ã€å‚åŠ è€…ã®è‡ªå‹•åˆ¶å¾¡ã‚’è¡Œã†ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã§ã™ã€‚  
+çŸ¥äººã®ä¾é ¼ã‚’ã‚‚ã¨ã«æ§‹ç¯‰ä¸­ã®ã‚‚ã®ã«ãªã‚Šã¾ã™ã€‚  
+å…ƒãƒã‚¿ã¯ã‚†ãã¿ã—ã®ã•ã‚“ã®ã‚¢ã‚¤ãƒ‡ã‚¢ã§ã™: https://note.com/fujii_shino/n/n5f1d6f057db4
 
-## 2. •K—v‚È‚à‚Ì
-* python 3.9ˆÈã
+## 2. å¿…è¦ãªã‚‚ã®
+* python 3.9ä»¥ä¸Š
   - https://www.python.jp/install/windows/install.html
   - https://qiita.com/shun_sakamoto/items/7944d0ac4d30edf91fde
-* pythonƒ‰ƒCƒuƒ‰ƒŠ(‰¼‘zŠÂ‹«‚ÉƒCƒ“ƒXƒg[ƒ‹‚·‚é‚Æ‚æ‚¢)
+* pythonãƒ©ã‚¤ãƒ–ãƒ©ãƒª(ä»®æƒ³ç’°å¢ƒã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ã¨ã‚ˆã„)
   - Helium
   - requests
   - discord.py
 
-* pixiv FANBOXƒAƒJƒEƒ“ƒg
-  - ƒ†[ƒU–¼, ƒpƒXƒ[ƒh
+* pixiv FANBOXã‚¢ã‚«ã‚¦ãƒ³ãƒˆ
+  - ãƒ¦ãƒ¼ã‚¶å, ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰
 
-* discordƒT[ƒo
-  - ƒT[ƒoID
-  - discordƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÌƒNƒ‰ƒCƒAƒ“ƒgID, ƒV[ƒNƒŒƒbƒgƒR[ƒh, ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒR[ƒh( https://apidog.com/jp/blog/discord-api/ )
+* discordã‚µãƒ¼ãƒ
+  - ã‚µãƒ¼ãƒID
+  - discordã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆID, ã‚·ãƒ¼ã‚¯ãƒ¬ãƒƒãƒˆã‚³ãƒ¼ãƒ‰, ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚³ãƒ¼ãƒ‰( https://apidog.com/jp/blog/discord-api/ )
 
-## 3. ì‹Æ“à—e
-* ‚±‚ÌƒŠƒ|ƒWƒgƒŠ‚ðƒNƒ[ƒ“‚·‚é
-* pixiv FANBOXƒAƒJƒEƒ“ƒg‚Ædiscord‚Ìî•ñ‚ðsecret.ini‚É‘‚«ž‚Þ
-* ƒRƒ}ƒ“ƒh‚ÅƒRƒlƒNƒ^[‚ðŽÀs‚·‚é
+## 3. ä½œæ¥­å†…å®¹
+* ã“ã®ãƒªãƒã‚¸ãƒˆãƒªã‚’ã‚¯ãƒ­ãƒ¼ãƒ³ã™ã‚‹
+* pixiv FANBOXã‚¢ã‚«ã‚¦ãƒ³ãƒˆã¨discordã®æƒ…å ±ã‚’secret.iniã«æ›¸ãè¾¼ã‚€
+* ã‚³ãƒžãƒ³ãƒ‰ã§ã‚³ãƒã‚¯ã‚¿ãƒ¼ã‚’å®Ÿè¡Œã™ã‚‹
   - `\.venv\Scripts\activate`
   - `python pixivConnectorBatch.py`
 
-* botŒ`Ž®‚ÅŽÀs‚µ‘±‚¯‚é(ƒT[ƒo[‚Ébot‚ð“o˜^‚µ‚Ä‚ ‚èA‚©‚Âsecret.ini‚Ébot‚ðŒÄ‚Ño‚·token‚ð‹LÚ‚·‚é•K—v‚ ‚è)
+* botå½¢å¼ã§å®Ÿè¡Œã—ç¶šã‘ã‚‹(ã‚µãƒ¼ãƒãƒ¼ã«botã‚’ç™»éŒ²ã—ã¦ã‚ã‚Šã€ã‹ã¤secret.iniã«botã‚’å‘¼ã³å‡ºã™tokenã‚’è¨˜è¼‰ã™ã‚‹å¿…è¦ã‚ã‚Š)
   - `\.venv\Scripts\activate`
   - `python pixivConnectorBot.py`
