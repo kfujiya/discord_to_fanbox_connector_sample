@@ -13,6 +13,7 @@
   - Helium
   - requests
   - discord.py
+  - audioop-lts
 
 * pixiv FANBOXアカウント
   - ユーザ名, パスワード
