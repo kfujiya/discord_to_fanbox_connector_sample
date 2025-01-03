@@ -17,13 +17,16 @@ pixivPass = applicationSetting.get("fanbox", "password")
 ## discord
 discordAuthClientID = applicationSetting.get("discord", "client_id")
 discordAuthSecretID = applicationSetting.get("discord", "secret_id")
-discodeAuthCode     = applicationSetting.get("discord", "OAuthCode")
+discordAuthCode     = applicationSetting.get("discord", "OAuthCode")
 
 # discordクライアント作成
 client=discord.Client(intents=discord.Intents.all())
 
 # pixiv FANBOXのファン一覧を取得する
 def test1():
+    # ファンリストリストを作成する
+    fanListDict = {}
+
     # FireFoxを開いてpixivのログインページを開く
     start_firefox("https://accounts.pixiv.net/login?prompt=select_account&return_to=https%3A%2F%2Fwww.fanbox.cc%2Fauth%2Fstart&source=fanbox")
 
@@ -35,17 +38,23 @@ def test1():
     click("ログイン")
     wait_until(helium.Text("ファン一覧").exists)
     click("ファン一覧")
-    wait_until(helium.Text("ミニミニ").exists)
-    click("ミニミニ")
 
-    # ここどうすればいいか確認する。
-    # print(TextFilld("ファン名").value)
+    # プラン名ごとにファン一覧を取得する
+    for plan in applicationSetting.get("fanbox_plan", "plans"):
+        wait_until(helium.Text(plan).exists)
+        click(plan)
+        time.sleep(5)
 
-    # 10秒撮影用に待つ
-    time.sleep(10)
+        # プランごとのファン一覧を取得する
+        planFanList = []
+
+        fanListDict[plan] = planFanList
+
 
     # ブラウザを閉じる
     kill_browser()
+
+    return fanListDict
 
 # discord APIを実行する
 def test2_discord():
@@ -60,7 +69,7 @@ def test2_discord():
         'client_id': discordAuthClientID,
         'client_secret': discordAuthSecretID,
         'grant_type': 'authorization_code',
-        'code': discodeAuthCode,
+        'code': discordAuthCode,
         'redirect_uri': 'http://localhost/discord/redirect'
     }
 
@@ -72,7 +81,7 @@ def test2_discord():
     try:
         response = requests.post(url, headers=requestHeader, data=requestBody)
         
-        body = response.json().get
+        body = response.json()
         #body = json.loads(response.read())
         headers = response.headers
         status = response.status_code
@@ -85,24 +94,4 @@ def test2_discord():
         print(e.reason)
         print(e.args)
 
-def test3_discordpy(server_id, role_id):
-    # 特定のロールIDのロールオブジェクトを取得する
-    ctx = discord.Client(intents=discord.Intents.all())
-    guild = ctx.get_guild(server_id)
-    role = guild.get_role(role_id)
-
-    # ロールオブジェクトのメンバーを取得する
-    members = role.members
-    print(members)
-
-
-@client.event
-async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
-    print('on_ready!')
-
-#test1()
-test2_discord()
-
-# discord botを動かす場合
-# client.run(token)
+test1()
