@@ -18,13 +18,15 @@ client = discord.Client(intents=discord.Intents.all())
 
 # コマンド接頭辞の正規表現設定
 command_prefix = re.compile(r'^!')
-hello_command  = re.compile(r'^!hello')
-getRoleMembers_command = re.compile(r'^!getRoleMembers.*')
+getRoleMembers_command = re.compile(r'^!getRoleMembers$')
+setClientRole_command = re.compile(r'^!setClientRole$')
 
-# サーバー情報を取得する
-def getGuild():
-    return client.get_guild(applicationSetting.get("discord", "guild_id"))
+# サーバーに参加しているメンバー一覧を取得する
+def getGuildMembers(guild):
+    members = guild.members
+    return members
 
+# ロールに所属するメンバーを取得する
 def getRoleMembers(guild, role_id):
     # 特定のロールIDのロールオブジェクトを取得する
     role = guild.get_role(role_id)
@@ -32,6 +34,41 @@ def getRoleMembers(guild, role_id):
     # ロールオブジェクトのメンバーを取得する
     members = role.members
     return members
+
+# ユーザにロールを追加する
+def joinRole(guild, role_id, user_name):
+    # ロールIDからオブジェクトを取得する
+    role = guild.get_role(role_id)
+
+    # ユーザ名からオブジェクトを取得してロール追加する
+    user = guild.get_member_named(user_name)
+    await user.add_roles(role, "自動追加処理")
+
+# ロールごとのメンバー一覧を取得
+def getMembers():
+    # botのいるサーバ情報を取得する
+    guild = client.guild
+    if guild == None:
+        print("サーバ情報が取得できませんでした")
+        return
+
+    # ロール一覧, ユーザ辞書
+    guildRoles = guild.roles
+    roleMemberList = {}
+
+    # ロールごとに
+    for gRole in guildRoles:
+
+        # for debug
+        print("確認ロール: " + gRole.name)
+
+        # メンバー情報を取得して辞書に格納する
+        memberList = getRoleMembers(guild, gRole.id)
+        if len(memberList) > 0:
+            roleMemberList[gRole.name] = memberList
+
+    return roleMemberList
+
 
 @client.event
 async def on_ready():
@@ -53,39 +90,19 @@ async def on_message(message):
     if not command_prefix.match(message.content):
         return
 
-    # メッセージが!helloで始まる場合, helloと返す
-    if hello_command.match(message.content):
-        await message.channel.send('Hello!')
-
-    # メッセージが!getRoleMembersで始まる場合, そのあとに入力したロールのメンバを取得する
+    # メッセージが!getRoleMembersの場合, 各ロールのメンバー名を取得する
     if getRoleMembers_command.match(message.content):
-        checkFlg = False
+        roleMemberList = getMembers()
 
-        # コメントのサーバ情報
-        guild = message.guild
-        if guild == None:
-            print("サーバ情報が取得できませんでした")
-            return
+        # for debug
+        for role in roleMemberList.keys():
+            members = roleMemberList[role]
+            memberNames = [member.name for member in members]
+            await message.channel.send(role + "のメンバー: " + ', '.join(memberNames))
 
-        guildRoles = guild.roles
+    # メッセージが!setClientRoleの場合, pixiv FANBOXの支援者情報を確認してロールを追加する
+    if setClientRole_command.match(message.content):
+        print("this command under construction")
 
-        searchRoleName = message.content.split()[1]
-        print("検索対象ロール: " + searchRoleName)
-        for gRole in guildRoles:
-            print("確認ロール: " + gRole.name)
-            if gRole.name == searchRoleName:
-                memberList = getRoleMembers(guild, gRole.id)
-                memberNameList = []
-                for member in memberList:
-                    memberNameList.append(member.name)
-                await message.channel.send("メンバーは次の通りです。\n" + ', '.join(memberNameList))
-                print("メンバーは次の通りです。\n" + ', '.join(memberNameList))
-                checkFlg = True
-                break
-
-        if checkFlg == False:
-            await message.channel.send("ロールが見つかりませんでした!")
-            print("ロールが見つかりませんでした!")
-
-# discord botを動かす場合
+# discord botを動かす
 client.run(discordToken)
